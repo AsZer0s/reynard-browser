@@ -49,6 +49,9 @@ jobs:
           if ! command -v ldid >/dev/null 2>&1; then
             brew install ldid
           fi
+          if ! brew --prefix llvm >/dev/null 2>&1; then
+            brew install llvm
+          fi
           if ! command -v rustup >/dev/null 2>&1; then
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
             echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"

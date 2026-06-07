@@ -53,5 +53,14 @@ if ! rustup target list | grep -q "^$TARGET (installed)"; then
 	rustup target add "$TARGET"
 fi
 
+LLVM_PREFIX="${LLVM_PREFIX:-}"
+if [ -z "$LLVM_PREFIX" ] && command -v brew >/dev/null 2>&1; then
+	LLVM_PREFIX="$(brew --prefix llvm 2>/dev/null || true)"
+fi
+if [ -n "$LLVM_PREFIX" ]; then
+	export WASM_CC="$LLVM_PREFIX/bin/clang"
+	export WASM_CXX="$LLVM_PREFIX/bin/clang++"
+fi
+
 cd "$FIREFOX_DIR"
 ./mach build

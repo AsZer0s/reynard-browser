@@ -39,7 +39,7 @@ rm -f "$FIREFOX_DIR/.mozconfig"
 # --version response from that explicit linker as ld64.
 python3 - <<'PY'
 from pathlib import Path
-path = Path("build/moz.configure/toolchain.configure")
+path = Path("$FIREFOX_DIR") / "build/moz.configure/toolchain.configure"
 text = path.read_text()
 old = 'if retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
 new = 'if linker == "ld64" and retcode != 0:\n                kind = "ld64"\n\n            elif retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'

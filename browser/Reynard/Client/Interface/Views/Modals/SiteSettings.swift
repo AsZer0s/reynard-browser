@@ -36,13 +36,13 @@ final class SiteSettingsViewController: UITableViewController {
             case .location:
                 return "Location"
             case .persistentStorage:
-                return "Persistent Storage"
+                return "持久存储"
             case .crossSiteCookies:
-                return "Cross-site Cookies"
+                return "跨站 Cookie"
             case .localDeviceAccess:
-                return "Device Apps and Services"
+                return "设备应用与服务"
             case .localNetworkAccess:
-                return "Local Network Devices"
+                return "本地网络设备"
             case .autoplay:
                 return "Autoplay"
             }
@@ -118,7 +118,7 @@ final class SiteSettingsViewController: UITableViewController {
         self.session = session
         self.store = store
         super.init(style: .insetGrouped)
-        title = "Settings for \(host)"
+        title = "\(host) 的设置"
     }
     
     required init?(coder: NSCoder) {
@@ -197,7 +197,7 @@ final class SiteSettingsViewController: UITableViewController {
             }
             
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Open Settings"
+            cell.textLabel?.text = "打开设置"
             cell.textLabel?.textColor = view.tintColor
             cell.accessoryType = .none
             return cell
@@ -205,10 +205,10 @@ final class SiteSettingsViewController: UITableViewController {
         
         if visibleSections[indexPath.section] == .websiteActions {
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            cell.textLabel?.text = "Reset Permissions for this Site"
+            cell.textLabel?.text = "重置此网站的权限"
             cell.textLabel?.textColor = .systemRed
             if didResetPermissions {
-                cell.detailTextLabel?.text = "Successfully reset permissions for this site."
+                cell.detailTextLabel?.text = "已成功重置此网站的权限。"
             } else {
                 cell.detailTextLabel?.text = nil
             }
@@ -391,9 +391,9 @@ final class SiteSettingsViewController: UITableViewController {
     private func options(for row: Row) -> [String] {
         if row == .autoplay {
             return [
-                "Allow Audio and Video",
-                "Block Audio only",
-                "Block Audio and Video",
+                "允许音频和视频",
+                "仅阻止音频",
+                "阻止音频和视频",
             ]
         }
         

@@ -37,11 +37,11 @@ final class MigrationController {
         self.fileManager = fileManager
         
         guard let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            fatalError("Documents directory is unavailable")
+            fatalError("文档目录不可用")
         }
         
         guard let applicationSupportDirectoryURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-            fatalError("Application Support directory is unavailable")
+            fatalError("应用支持目录不可用")
         }
         
         self.documentsDirectoryURL = documentsDirectoryURL
@@ -70,11 +70,11 @@ final class MigrationController {
             }
             try fileManager.moveItem(at: sourceURL, to: destinationURL)
         } catch {
-            fatalError("AppData migration failed")
+            fatalError("应用数据迁移失败")
         }
         
         guard !fileManager.fileExists(atPath: sourceURL.path) else {
-            fatalError("AppData migration failed")
+            fatalError("应用数据迁移失败")
         }
     }
     
@@ -93,11 +93,11 @@ final class MigrationController {
             }
             try fileManager.moveItem(at: sourceURL, to: destinationURL)
         } catch {
-            fatalError("DDI migration failed")
+            fatalError("DDI 迁移失败")
         }
         
         guard !fileManager.fileExists(atPath: sourceURL.path) else {
-            fatalError("DDI migration failed")
+            fatalError("DDI 迁移失败")
         }
     }
     

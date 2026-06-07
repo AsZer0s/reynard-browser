@@ -199,7 +199,7 @@ final class JITController {
             return
         }
         
-        let description = error.localizedDescription.isEmpty ? "Unknown error." : error.localizedDescription
+        let description = error.localizedDescription.isEmpty ? "未知错误。" : error.localizedDescription
         let messageText: String
         if usePtraceJIT() {
             messageText = "It's extremely rare that you encounter this issue! Make sure that your TrollStore installation or jailbroken environment is properly configured.\n\nYou may use the browser without JIT temporarily until the next launch by activating JIT-Less Mode."

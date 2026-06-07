@@ -28,7 +28,7 @@ final class SearchPreferencesViewController: SettingsTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.textLabel?.text = "Search Engine"
+        cell.textLabel?.text = "搜索引擎"
         cell.detailTextLabel?.text = Prefs.SearchSettings.searchEngine.displayName
         cell.detailTextLabel?.textColor = .secondaryLabel
         cell.accessoryType = .disclosureIndicator
@@ -70,7 +70,7 @@ final class SettingsTextFieldCell: UITableViewCell {
 final class SearchEnginePreferencesViewController: SettingsTableViewController, UITextFieldDelegate {
     init() {
         super.init(style: .insetGrouped)
-        title = "Search Engine"
+        title = "搜索引擎"
     }
     
     required init?(coder: NSCoder) {
@@ -134,12 +134,12 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Search Engine" : nil
+        section == 0 ? "搜索引擎" : nil
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         guard section == 1 else { return nil }
-        let baseText = "Enter URL with %s in place of query"
+        let baseText = "输入 URL，并用 %s 代替搜索词"
         guard !Prefs.SearchSettings.customSearchTemplate.isEmpty,
               isValidCustomSearchTemplate(Prefs.SearchSettings.customSearchTemplate) else { return baseText }
         return "\(baseText). The current value must be a valid http(s) URL."
@@ -151,8 +151,8 @@ final class SearchEnginePreferencesViewController: SettingsTableViewController, 
         let value = Prefs.SearchSettings.customSearchTemplate
         guard !value.isEmpty, !isValidCustomSearchTemplate(value) else { return }
         presentAlert(
-            title: "Invalid Search URL",
-            message: "Enter a valid http(s) URL containing %s where the search query should go."
+            title: "搜索 URL 无效",
+            message: "请输入有效的 http(s) URL，并在搜索词位置包含 %s。"
         )
     }
     

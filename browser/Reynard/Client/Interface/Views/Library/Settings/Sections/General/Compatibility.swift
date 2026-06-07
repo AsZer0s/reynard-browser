@@ -57,13 +57,13 @@ final class CompatibilityPreferencesViewController: SettingsTableViewController 
         switch row {
         case .useAndroidUserAgent:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Use Android User Agent"
+            cell.textLabel?.text = "使用 Android 用户代理"
             cell.selectionStyle = .none
             cell.accessoryView = androidUASwitch
             return cell
         case .userAgentOverrides:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "User Agent Overrides"
+            cell.textLabel?.text = "用户代理覆盖"
             cell.accessoryType = .disclosureIndicator
             return cell
         }
@@ -82,11 +82,11 @@ final class CompatibilityPreferencesViewController: SettingsTableViewController 
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if Prefs.CompatibilitySettings.useAndroidUserAgent {
             return Prefs.BrowsingSettings.requestDesktopWebsite
-            ? "The browser will use a desktop Firefox user agent for navigating the web."
-            : "To maximize compatibility, the browser will use the Firefox for Android user agent for navigating the web. As a result, websites may identify your device as an Android device."
+            ? "浏览器将使用桌面版 Firefox 用户代理浏览网页。"
+            : "为最大化兼容性，浏览器将使用 Android 版 Firefox 用户代理浏览网页。因此，网站可能会将你的设备识别为 Android 设备。"
         }
         
-        return "If you encounter issues such as sign-in failures, human verification challenges, or other incorrect site behavior, adding the site's URL to this user agent override list may help resolve the problem."
+        return "如果遇到登录失败、人机验证异常或其他网站行为不正确的问题，将该网站 URL 添加到用户代理覆盖列表可能有助于解决问题。"
     }
     
     private func refreshControls() {
@@ -124,7 +124,7 @@ final class UserAgentOverridesPreferencesViewController: UITableViewController {
     
     init() {
         super.init(style: .insetGrouped)
-        title = "User Agent Overrides"
+        title = "用户代理覆盖"
     }
     
     required init?(coder: NSCoder) {
@@ -155,7 +155,7 @@ final class UserAgentOverridesPreferencesViewController: UITableViewController {
                 cell.textLabel?.text = domains[indexPath.row]
                 cell.selectionStyle = .default
             } else {
-                cell.textLabel?.text = "Add Website..."
+                cell.textLabel?.text = "添加网站..."
                 cell.textLabel?.textColor = tableView.tintColor
             }
             return cell
@@ -189,13 +189,13 @@ final class UserAgentOverridesPreferencesViewController: UITableViewController {
             return nil
         }
         
-        return "Navigations to these websites will use the browser's compatibility user agent. Depending on your Request Desktop Website setting, these websites may identify your device as either an Android device or a desktop Linux device."
+        return "访问这些网站时将使用浏览器的兼容性用户代理。根据你的“请求桌面版网站”设置，这些网站可能会将你的设备识别为 Android 设备或桌面 Linux 设备。"
     }
     
     private func showAddDomainAlert() {
-        let alert = UIAlertController(title: "Add Website", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "添加网站", message: nil, preferredStyle: .alert)
         alert.addTextField { field in
-            field.placeholder = "e.g. youtube.com"
+            field.placeholder = "例如 youtube.com"
             field.autocorrectionType = .no
             field.autocapitalizationType = .none
             field.keyboardType = .URL

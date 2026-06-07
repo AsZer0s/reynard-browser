@@ -124,13 +124,13 @@ final class SettingsRootViewController: SettingsTableViewController {
             return makeUpdateNowCell()
         case .jit where indexPath.row == 0:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Enable JIT"
+            cell.textLabel?.text = "启用 JIT"
             cell.selectionStyle = .none
             cell.accessoryView = jitSwitch
             return cell
         case .jit:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Import Pairing File..."
+            cell.textLabel?.text = "导入配对文件..."
             cell.textLabel?.textColor = view.tintColor
             // if on 16.6 to 17.3.1, disable the cell.
             if #available(iOS 16.6, *) {
@@ -152,21 +152,21 @@ final class SettingsRootViewController: SettingsTableViewController {
                 let info = Bundle.main.infoDictionary
                 let version = info?["CFBundleShortVersionString"] as? String ?? "Unknown"
                 let build = info?["CFBundleVersion"] as? String ?? "Unknown"
-                cell.textLabel?.text = "Reynard Browser"
+                cell.textLabel?.text = "Reynard 浏览器"
                 cell.detailTextLabel?.text = "\(version) (\(build))"
                 cell.detailTextLabel?.textColor = .secondaryLabel
                 cell.selectionStyle = .none
                 cell.accessoryType = .none
                 return cell
             case 1:
-                cell.textLabel?.text = "Engine Version"
+                cell.textLabel?.text = "引擎版本"
                 cell.detailTextLabel?.text = GeckoRuntime.version
                 cell.detailTextLabel?.textColor = .secondaryLabel
                 cell.selectionStyle = .none
                 cell.accessoryType = .none
                 return cell
-            case 2: cell.textLabel?.text = "View Source Code"
-            case 3: cell.textLabel?.text = "Support The Project"
+            case 2: cell.textLabel?.text = "查看源代码"
+            case 3: cell.textLabel?.text = "支持项目"
             case 4: cell.textLabel?.text = "GitHub - @minh-ton"
             default: cell.textLabel?.text = nil
             }
@@ -206,7 +206,7 @@ final class SettingsRootViewController: SettingsTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard visibleSections.indices.contains(section) else { return nil }
         switch visibleSections[section] {
-        case .updates: return "Update Available"
+        case .updates: return "有可用更新"
         case .jit: return "JIT"
         case .general: return "General"
         case .privacy: return "Privacy"
@@ -295,7 +295,7 @@ private extension SettingsRootViewController {
         switch row {
         case .sitePermissions:
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Site Permissions"
+            cell.textLabel?.text = "网站权限"
             cell.accessoryType = .disclosureIndicator
             return cell
         }

@@ -14,8 +14,8 @@ protocol SearchViewControllerDelegate: AnyObject {
 
 final class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private enum Constants {
-        static let suggestionsSectionTitle = "Google Suggestions"
-        static let auxiliarySectionTitle = "Bookmarks, History, and Tabs"
+        static let suggestionsSectionTitle = "Google 搜索建议"
+        static let auxiliarySectionTitle = "书签、历史记录和标签页"
         static let hiddenRowHeight: CGFloat = 0.01
         static let limitedSuggestionCountWithAuxiliary = 4
         static let tableInset: CGFloat = 8

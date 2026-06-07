@@ -132,7 +132,7 @@ final class SitePermissionStore {
         self.fileManager = fileManager
         
         guard let applicationSupportDirectoryURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-            fatalError("Application Support directory is unavailable")
+            fatalError("应用支持目录不可用")
         }
         
         let directoryURL = applicationSupportDirectoryURL

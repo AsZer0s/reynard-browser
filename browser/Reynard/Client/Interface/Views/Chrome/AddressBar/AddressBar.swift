@@ -39,7 +39,7 @@ protocol AddressBarDelegate: AnyObject {
 }
 
 final class AddressBar: UIView {
-    static let placeholderText = "Search or enter website name"
+    static let placeholderText = "搜索或输入网址"
     
     private weak var delegate: AddressBarDelegate?
     private var shadowEnabled = true

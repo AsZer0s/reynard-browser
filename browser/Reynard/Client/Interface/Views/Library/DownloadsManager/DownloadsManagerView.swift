@@ -23,7 +23,7 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
         searchBar.autocapitalizationType = .none
         searchBar.autocorrectionType = .no
         searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search Downloads"
+        searchBar.placeholder = "搜索下载"
         searchBar.delegate = self
         return searchBar
     }()
@@ -73,7 +73,7 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
         return view
     }()
     
-    private let emptyStateView = LibraryEmptyBackgroundView(message: "Files you download appear here")
+    private let emptyStateView = LibraryEmptyBackgroundView(message: "你下载的文件会显示在这里")
     private var sections: [Section] = []
     private var notificationToken: NSObjectProtocol?
     private var applicationActiveToken: NSObjectProtocol?
@@ -263,10 +263,10 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
     
     fileprivate func makeDownloadsActionsMenu() -> UIMenu {
         UIMenu(title: "", children: [
-            UIAction(title: "Open Downloads Folder", image: UIImage(systemName: "folder")) { [weak self] _ in
+            UIAction(title: "打开下载文件夹", image: UIImage(systemName: "folder")) { [weak self] _ in
                 self?.openDownloadsFolder()
             },
-            UIAction(title: "Clear Downloads History", image: UIImage(named: "arrow.down.circle.badge.xmark")) { [weak self] _ in
+            UIAction(title: "清除下载历史", image: UIImage(named: "arrow.down.circle.badge.xmark")) { [weak self] _ in
                 self?.presentClearDownloadsHistory()
             },
         ])
@@ -381,7 +381,7 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
     }
     
     private func updateBackgroundView() {
-        emptyStateView.message = currentSearchTerm.isEmpty ? "Files you download appear here" : "No matching downloads"
+        emptyStateView.message = currentSearchTerm.isEmpty ? "你下载的文件会显示在这里" : "没有匹配的下载记录"
         tableView.backgroundView = sections.isEmpty ? emptyStateView : nil
         emptyStateView.updateContentInsets(from: tableView)
     }
@@ -456,10 +456,10 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
             resolvedSections.append(Section(title: "Yesterday", items: yesterdayItems))
         }
         if !previousSevenDayItems.isEmpty {
-            resolvedSections.append(Section(title: "Previous 7 Days", items: previousSevenDayItems))
+            resolvedSections.append(Section(title: "过去 7 天", items: previousSevenDayItems))
         }
         if !previousThirtyDayItems.isEmpty {
-            resolvedSections.append(Section(title: "Previous 30 Days", items: previousThirtyDayItems))
+            resolvedSections.append(Section(title: "过去 30 天", items: previousThirtyDayItems))
         }
         
         let currentYear = calendar.component(.year, from: now)
@@ -601,7 +601,7 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
             }
             shareAction.backgroundColor = .systemGreen
             
-            let openAction = UIContextualAction(style: .normal, title: "Open in\nFiles") { [weak self] _, _, completion in
+            let openAction = UIContextualAction(style: .normal, title: "在“文件”中\n打开") { [weak self] _, _, completion in
                 guard let self else {
                     completion(false)
                     return
@@ -676,14 +676,14 @@ final class DownloadsManagerView: UIView, UITableViewDataSource, UITableViewDele
         }
         
         let alert = UIAlertController(
-            title: "Cancel Download?",
-            message: "Do you want to stop downloading \(item.fileName)?",
+            title: "取消下载？",
+            message: "是否停止下载 \(item.fileName)？",
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "Keep Downloading", style: .cancel) { _ in
+        alert.addAction(UIAlertAction(title: "继续下载", style: .cancel) { _ in
             completion(false)
         })
-        alert.addAction(UIAlertAction(title: "Cancel Download", style: .destructive) { _ in
+        alert.addAction(UIAlertAction(title: "取消下载", style: .destructive) { _ in
             DownloadStore.shared.cancelDownload(id: item.id)
             completion(true)
         })

@@ -156,11 +156,11 @@ final class AddonPromptViewController: UITableViewController {
             guard !displayItems.isEmpty else {
                 return nil
             }
-            return "Required Permissions"
+            return "所需权限"
         case .dataCollection:
-            return dataCollectionDescription == nil ? nil : "Required Data Collection"
+            return dataCollectionDescription == nil ? nil : "所需数据收集"
         case .options:
-            return "Additional Options"
+            return "其他选项"
         case .message:
             return nil
         }
@@ -192,7 +192,7 @@ final class AddonPromptViewController: UITableViewController {
                 cell.textLabel?.text = value
             case .showAllSites:
                 cell.textLabel?.font = .preferredFont(forTextStyle: .body)
-                cell.textLabel?.text = "Show All Sites"
+                cell.textLabel?.text = "显示所有网站"
                 cell.textLabel?.textColor = view.tintColor
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
@@ -207,7 +207,7 @@ final class AddonPromptViewController: UITableViewController {
             }
         case .options:
             cell.textLabel?.font = .preferredFont(forTextStyle: .body)
-            cell.textLabel?.text = "Allow in Private Browsing"
+            cell.textLabel?.text = "允许在隐私浏览中使用"
             cell.accessoryView = privateBrowsingSwitch
         }
         
@@ -314,9 +314,9 @@ final class AddonPromptViewController: UITableViewController {
     private static func promptTitle(for prompt: AddonPermissionPrompt) -> String {
         switch prompt.kind {
         case .install:
-            return "Add Add-on"
+            return "添加扩展"
         case .optional, .update:
-            return "Update Add-on Permissions"
+            return "更新扩展权限"
         }
     }
     

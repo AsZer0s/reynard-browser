@@ -22,7 +22,7 @@ enum ImagePreviewMenu {
             ImagePreviewViewController(url: url)
         } actionProvider: { _ in
             let shareImageAction = UIAction(
-                title: "Share Image",
+                title: "分享图片",
                 image: UIImage(systemName: "square.and.arrow.up")
             ) { _ in
                 Task {
@@ -36,7 +36,7 @@ enum ImagePreviewMenu {
             }
             
             let saveToPhotosAction = UIAction(
-                title: "Save to Photos",
+                title: "保存到照片",
                 image: UIImage(systemName: "square.and.arrow.down")
             ) { _ in
                 Task {

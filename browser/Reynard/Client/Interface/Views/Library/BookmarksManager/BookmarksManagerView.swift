@@ -68,7 +68,7 @@ private final class BookmarksFolderViewController: UIViewController, UITableView
         parentFolderGUID == nil
     }
     private lazy var newFolderButtonItem = UIBarButtonItem(
-        title: "New Folder",
+        title: "新建文件夹",
         style: .plain,
         target: self,
         action: #selector(promptForNewFolder)
@@ -78,7 +78,7 @@ private final class BookmarksFolderViewController: UIViewController, UITableView
         searchBar.autocapitalizationType = .none
         searchBar.autocorrectionType = .no
         searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search Bookmarks"
+        searchBar.placeholder = "搜索书签"
         searchBar.delegate = self
         return searchBar
     }()
@@ -120,7 +120,7 @@ private final class BookmarksFolderViewController: UIViewController, UITableView
     }()
     private let emptyStateLabel: UILabel = {
         let label = UILabel()
-        label.text = "No matching bookmarks"
+        label.text = "没有匹配的书签"
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.textColor = .secondaryLabel
         label.textAlignment = .center
@@ -515,7 +515,7 @@ private final class BookmarksFolderViewController: UIViewController, UITableView
         UIMenu(title: "", children: [
             makeSortMenu(),
             UIAction(
-                title: "Show Folders on Top",
+                title: "文件夹置顶",
                 image: UIImage(named: "text.below.folder"),
                 state: Prefs.BookmarkSettings.placeFoldersOnTop ? .on : .off
             ) { [weak self] _ in
@@ -524,10 +524,10 @@ private final class BookmarksFolderViewController: UIViewController, UITableView
                 self?.updateSearchActionsButton()
             },
             UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [
-                UIAction(title: "Edit Bookmarks", image: UIImage(systemName: "pencil")) { [weak self] _ in
+                UIAction(title: "编辑书签", image: UIImage(systemName: "pencil")) { [weak self] _ in
                     self?.setEditing(true, animated: true)
                 },
-                UIAction(title: "New Folder", image: UIImage(systemName: "folder.badge.plus")) { [weak self] _ in
+                UIAction(title: "新建文件夹", image: UIImage(systemName: "folder.badge.plus")) { [weak self] _ in
                     self?.promptForNewFolder()
                 },
             ]),
@@ -538,12 +538,12 @@ private final class BookmarksFolderViewController: UIViewController, UITableView
         let selectedOrder = Prefs.BookmarkSettings.sortOrders
         let sortOptions: [(title: String, order: BookmarkSortOrder)] = [
             ("None", .none),
-            ("Date Added", .date_added),
+            ("添加日期", .date_added),
             ("Name", .name),
             ("Address", .address),
         ]
         let menu = UIMenu(
-            title: "Sort By",
+            title: "排序方式",
             image: UIImage(systemName: "arrow.up.arrow.down"),
             identifier: nil,
             options: [],

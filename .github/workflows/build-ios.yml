@@ -1,0 +1,61 @@
+name: Build Reynard iOS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, chinese-localization-actions ]
+    paths:
+      - 'browser/**'
+      - 'engine/**'
+      - 'patches/**'
+      - 'support/**'
+      - 'tools/**'
+      - '.github/workflows/build-ios.yml'
+
+jobs:
+  build:
+    name: Build IPA
+    runs-on: macos-15
+    timeout-minutes: 720
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install rust ldid
+          python3 -m pip install --upgrade pip
+
+      - name: Download Gecko and apply patches
+        run: |
+          ./tools/development/update-gecko.sh
+          ./tools/development/apply-patches.sh
+
+      - name: Build idevice support
+        run: ./tools/development/build-idevice.sh
+
+      - name: Build Gecko engine
+        run: ./tools/development/build-gecko.sh
+
+      - name: Archive app
+        run: ./tools/release/build-app.sh
+
+      - name: Package IPA
+        run: ./tools/release/create-ipa.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Reynard-iOS-build
+          path: |
+            dist/Reynard.ipa
+            dist/Reynard-TrollStore.tipa
+            dist/Reynard-Jailbroken.ipa
+          if-no-files-found: error

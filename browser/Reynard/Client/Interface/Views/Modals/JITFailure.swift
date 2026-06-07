@@ -231,7 +231,7 @@ final class JITFailureViewController: UIViewController {
         onPrimaryAction: (() -> Void)? = nil
     ) {
         self.errorCode = errorCode
-        self.errorDescriptionText = errorDescription.isEmpty ? "Unknown error." : errorDescription
+        self.errorDescriptionText = errorDescription.isEmpty ? "未知错误。" : errorDescription
         self.showsErrorDetails = showsErrorDetails
         self.titleText = titleText
         self.messageText = messageText

@@ -27,28 +27,28 @@ enum LinkPreviewMenu {
             return viewController
         } actionProvider: { _ in
             let openInNewTabAction = UIAction(
-                title: "Open in New Tab",
+                title: "在新标签页打开",
                 image: UIImage(systemName: "plus")
             ) { _ in
                 openInNewTab()
             }
             
             let openInNewPrivateTabAction = UIAction(
-                title: "Open in New Private Tab",
+                title: "在新的隐私标签页打开",
                 image: UIImage(systemName: "sunglasses")
             ) { _ in
                 openInNewPrivateTab()
             }
             
             let copyLinkAction = UIAction(
-                title: "Copy Link",
+                title: "复制链接",
                 image: UIImage(systemName: "document.on.document")
             ) { _ in
                 UIPasteboard.general.string = url.absoluteString
             }
             
             let shareLinkAction = UIAction(
-                title: "Share Link",
+                title: "分享链接",
                 image: UIImage(systemName: "square.and.arrow.up")
             ) { _ in
                 shareLink(url)

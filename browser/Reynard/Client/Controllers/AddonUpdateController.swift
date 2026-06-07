@@ -154,20 +154,20 @@ final class AddonUpdateController {
                     noUpdateCount += 1
                     removePendingApprovalAddonID(addon.id)
                     await MainActor.run {
-                        status(addon.id, "No update available")
+                        status(addon.id, "没有可用更新")
                     }
                 } else {
                     updatedCount += 1
                     removePendingApprovalAddonID(addon.id)
                     await MainActor.run {
-                        status(addon.id, "Successfully updated")
+                        status(addon.id, "更新成功")
                     }
                 }
             } catch {
                 if AddonErrors.updateRequiresPermissions(error) {
                     addPendingApprovalAddonID(addon.id)
                     await MainActor.run {
-                        status(addon.id, "Needs permission to update")
+                        status(addon.id, "需要授权后更新")
                     }
                     continue
                 }

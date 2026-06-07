@@ -35,13 +35,13 @@ final class BrowsingPreferencesViewController: SettingsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Request Desktop Website On"
+        "请求桌面版网站"
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         cell.selectionStyle = .none
-        cell.textLabel?.text = "All Website"
+        cell.textLabel?.text = "所有网站"
         cell.accessoryView = requestDesktopWebsiteSwitch
         
         return cell

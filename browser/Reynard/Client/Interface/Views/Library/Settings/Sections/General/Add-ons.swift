@@ -55,13 +55,13 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
     
     private var updateActionTitle: String {
         if isUpdatingAddons {
-            return "Updating Add-ons..."
+            return "正在更新扩展..."
         }
         if let browserViewController = resolvedBrowserViewController(),
            browserViewController.addonController.updateController.hasPendingApprovals {
-            return "Complete Add-on Updates"
+            return "完成扩展更新"
         }
-        return "Update All Add-ons"
+        return "更新所有扩展"
     }
     
     init() {
@@ -120,7 +120,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             if installedAddons.isEmpty {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.selectionStyle = .none
-                cell.textLabel?.text = isLoadingAddons ? "Loading Add-ons..." : "No Add-ons Installed"
+                cell.textLabel?.text = isLoadingAddons ? "正在加载扩展..." : "未安装扩展"
                 cell.textLabel?.textColor = .secondaryLabel
                 return cell
             }
@@ -160,10 +160,10 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Discover Add-ons..."
+                cell.textLabel?.text = "发现扩展..."
                 cell.textLabel?.textColor = view.tintColor
             case 1:
-                cell.textLabel?.text = isInstallingAddonFromFile ? "Installing Add-on..." : "Install Add-on From File..."
+                cell.textLabel?.text = isInstallingAddonFromFile ? "正在安装扩展..." : "从文件安装扩展..."
                 cell.textLabel?.textColor = isInstallingAddonFromFile ? .secondaryLabel : view.tintColor
                 if isInstallingAddonFromFile {
                     cell.selectionStyle = .none
@@ -225,9 +225,9 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
         
         switch visibleSections[section] {
         case .installed:
-            return installedAddons.isEmpty ? nil : "Installed Add-ons"
+            return installedAddons.isEmpty ? nil : "已安装扩展"
         case .unsupported:
-            return unsupportedAddons.isEmpty ? nil : "Unsupported Add-ons"
+            return unsupportedAddons.isEmpty ? nil : "不支持的扩展"
         case .more:
             return nil
         }
@@ -461,7 +461,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
             return
         }
         
-        pendingApprovalAddonIDs.forEach { addonStatusTextByID[$0] = "Needs permission to update" }
+        pendingApprovalAddonIDs.forEach { addonStatusTextByID[$0] = "需要授权后更新" }
         footerSummaryText = pendingApprovalAddonIDs.count == 1
         ? "1 add-on needs permission to update."
         : "\(pendingApprovalAddonIDs.count) add-ons need permission to update."
@@ -523,7 +523,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
                 self.isUpdatingAddons = false
                 
                 let pendingApprovalAddonIDs = Prefs.AddonSettings.pendingApprovalAddonIDs
-                pendingApprovalAddonIDs.forEach { self.addonStatusTextByID[$0] = "Needs permission to update" }
+                pendingApprovalAddonIDs.forEach { self.addonStatusTextByID[$0] = "需要授权后更新" }
                 self.footerSummaryText = self.footerSummary(for: result)
                 self.tableView.reloadData()
             }
@@ -550,7 +550,7 @@ final class AddonsPreferencesViewController: SettingsTableViewController {
         }
         
         if parts.isEmpty, result.noUpdateCount > 0 {
-            return "No updates found."
+            return "未找到更新。"
         }
         
         return parts.isEmpty ? nil : parts.joined(separator: " ")
@@ -666,14 +666,14 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
         let metaData = addon.metaData
         if metaData.isBlocklisted {
             return StatusMessage(
-                text: "This extension is blocked for violating Mozilla's policies and has been disabled.",
+                text: "此扩展因违反 Mozilla 政策已被封锁并禁用。",
                 color: .systemRed
             )
         }
         
         if metaData.isUnsupported {
             return StatusMessage(
-                text: "This extension isn't supported by this version of Reynard and has been disabled.",
+                text: "当前版本的 Reynard 不支持此扩展，已将其禁用。",
                 color: .systemOrange
             )
         }
@@ -697,8 +697,8 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
         if metaData.isSoftBlocked {
             return StatusMessage(
                 text: metaData.enabled
-                ? "This extension is restricted. Using it may be risky."
-                : "This extension is restricted and has been disabled. You can enable it, but this may be risky.",
+                ? "此扩展受限，使用它可能存在风险。"
+                : "此扩展受限且已被禁用。",
                 color: .systemOrange
             )
         }
@@ -838,7 +838,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
                 await MainActor.run {
                     self.isUpdatingAddon = false
                     self.apply(addon: addon)
-                    self.presentAlert(title: "Failed to update private browsing access", message: "\(error)")
+                    self.presentAlert(title: "更新隐私浏览访问权限失败", message: "\(error)")
                 }
             }
         }
@@ -892,7 +892,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
             }
         } catch {
             await MainActor.run {
-                self.presentAlert(title: "Failed to reload add-on", message: "\(error)")
+                self.presentAlert(title: "重新加载扩展失败", message: "\(error)")
             }
         }
     }
@@ -935,8 +935,8 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
             cell.accessoryView = enableSwitch
         case .privateBrowsing:
             cell.textLabel?.text = addon?.metaData.incognito == .notAllowed
-            ? "Not Allowed in Private Browsing"
-            : "Allow in Private Browsing"
+            ? "不允许在隐私浏览中使用"
+            : "允许在隐私浏览中使用"
             cell.textLabel?.textColor = addon?.metaData.incognito == .notAllowed ? .secondaryLabel : .label
             cell.selectionStyle = .none
             cell.accessoryView = privateBrowsingSwitch
@@ -1020,7 +1020,7 @@ final class AddonDetailsPreferencesViewController: SettingsTableViewController {
                 await MainActor.run {
                     self.isUpdatingAddon = false
                     self.apply(addon: addon)
-                    self.presentAlert(title: "Failed to remove add-on", message: "\(error)")
+                    self.presentAlert(title: "移除扩展失败", message: "\(error)")
                 }
             }
         }
@@ -1098,7 +1098,7 @@ private final class AddonInformationPreferencesViewController: SettingsTableView
         rows.append(InformationRow(title: "Version", value: metaData.version, link: nil))
         
         if let updateDate = formattedUpdateDate(metaData.updateDate) {
-            rows.append(InformationRow(title: "Last updated", value: updateDate, link: nil))
+            rows.append(InformationRow(title: "上次更新", value: updateDate, link: nil))
         }
         
         if let ratingText = formattedRating(metaData) {
@@ -1120,7 +1120,7 @@ private final class AddonInformationPreferencesViewController: SettingsTableView
         }
         
         if let listingURL = validatedURLString(metaData.amoListingURL) {
-            rows.append(InformationRow(title: "More about this extension", value: listingURL, link: listingURL))
+            rows.append(InformationRow(title: "关于此扩展的更多信息", value: listingURL, link: listingURL))
         }
         
         return rows
@@ -1255,7 +1255,7 @@ private final class AddonInformationPreferencesViewController: SettingsTableView
             }
         } catch {
             await MainActor.run {
-                self.presentAlert(title: "Failed to reload add-on", message: "\(error)")
+                self.presentAlert(title: "重新加载扩展失败", message: "\(error)")
             }
         }
     }
@@ -1363,7 +1363,7 @@ private final class AddonPermissionsPreferencesViewController: SettingsTableView
         if !requiredPermissions.isEmpty {
             sections.append(
                 SectionModel(
-                    title: "Required Permissions",
+                    title: "所需权限",
                     rows: requiredPermissions.map(Row.message)
                 )
             )
@@ -1411,13 +1411,13 @@ private final class AddonPermissionsPreferencesViewController: SettingsTableView
         }
         
         if !optionalRows.isEmpty {
-            sections.append(SectionModel(title: "Optional Permissions", rows: optionalRows))
+            sections.append(SectionModel(title: "可选权限", rows: optionalRows))
         }
         
         if let requiredDataCollectionDescription = AddonPermissionSupport.requiredDataCollectionDescription(for: metaData.requiredDataCollectionPermissions) {
             sections.append(
                 SectionModel(
-                    title: "Required Data Collection",
+                    title: "所需数据收集",
                     rows: [.message(requiredDataCollectionDescription)]
                 )
             )
@@ -1426,7 +1426,7 @@ private final class AddonPermissionsPreferencesViewController: SettingsTableView
         if !optionalDataCollectionPermissions.isEmpty {
             sections.append(
                 SectionModel(
-                    title: "Optional Data Collection",
+                    title: "可选数据收集",
                     rows: optionalDataCollectionPermissions.map {
                         .toggle(
                             title: $0.localizedName,
@@ -1572,7 +1572,7 @@ private final class AddonPermissionsPreferencesViewController: SettingsTableView
                     self.isUpdatingPermissions = false
                     self.addon = addon
                     self.tableView.reloadData()
-                    self.presentAlert(title: "Failed to update permissions", message: "\(error)")
+                    self.presentAlert(title: "更新权限失败", message: "\(error)")
                 }
             }
         }
@@ -1593,7 +1593,7 @@ private final class AddonPermissionsPreferencesViewController: SettingsTableView
             }
         } catch {
             await MainActor.run {
-                self.presentAlert(title: "Failed to reload add-on", message: "\(error)")
+                self.presentAlert(title: "重新加载扩展失败", message: "\(error)")
             }
         }
     }

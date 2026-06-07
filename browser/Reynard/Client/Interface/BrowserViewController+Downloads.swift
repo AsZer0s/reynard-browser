@@ -129,7 +129,7 @@ extension BrowserViewController {
         isPresentingDownloadConfirmation = true
         
         let alert = UIAlertController(
-            title: "Do you want to download \"\(download.fileName)\"?",
+            title: "是否下载“\(download.fileName)”？",
             message: nil,
             preferredStyle: .alert
         )

@@ -156,11 +156,11 @@ final class DownloadStore: NSObject {
         self.fileManager = .default
         
         guard let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            fatalError("Documents directory is unavailable")
+            fatalError("文档目录不可用")
         }
         
         guard let applicationSupportDirectoryURL = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-            fatalError("Application Support directory is unavailable")
+            fatalError("应用支持目录不可用")
         }
         
         let downloadsDirectoryURL = documentsDirectoryURL.appendingPathComponent("Downloads", isDirectory: true)

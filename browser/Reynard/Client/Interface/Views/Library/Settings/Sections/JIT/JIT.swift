@@ -39,7 +39,7 @@ extension SettingsRootViewController {
             statusLabel.font = statusBoldFont
             statusLabel.adjustsFontForContentSizeCategory = true
             statusLabel.textColor = .systemOrange
-            statusLabel.text = "\u{25B2} JIT-Less Mode is Currently Active"
+            statusLabel.text = "\u{25B2} 当前处于无 JIT 模式"
             stack.addArrangedSubview(statusLabel)
         }
         
@@ -48,7 +48,7 @@ extension SettingsRootViewController {
         detailLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         detailLabel.adjustsFontForContentSizeCategory = true
         detailLabel.textColor = .secondaryLabel
-        detailLabel.text = "Enabling JIT improves performance significantly and is required for features like WebAssembly."
+        detailLabel.text = "启用 JIT 可显著提升性能，并且 WebAssembly 等功能需要 JIT。"
         stack.addArrangedSubview(detailLabel)
         
         // if on 16.6 to 17.3.1, show warning about JIT
@@ -59,7 +59,7 @@ extension SettingsRootViewController {
                 warningLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
                 warningLabel.adjustsFontForContentSizeCategory = true
                 warningLabel.textColor = .systemRed
-                warningLabel.text = "This pairing-based JIT enablement method is not working properly on the OS version you are using. You can use the browser without JIT; or if you're on an iOS/iPadOS version that supports TrollStore, consider using the TrollStore IPA instead."
+                warningLabel.text = "基于配对文件的 JIT 启用方式在你当前的系统版本上无法正常工作。你可以在无 JIT 模式下使用浏览器；如果你的 iOS/iPadOS 版本支持 TrollStore，建议改用 TrollStore 版 IPA。"
                 stack.addArrangedSubview(warningLabel)
             }
         }
@@ -96,7 +96,7 @@ extension SettingsRootViewController {
                 DispatchQueue.main.async { self.refreshControls() }
             } catch {
                 DispatchQueue.main.async {
-                    self.presentAlert(title: "Import Failed", message: error.localizedDescription)
+                    self.presentAlert(title: "导入失败", message: error.localizedDescription)
                 }
             }
         }
@@ -117,8 +117,8 @@ extension SettingsRootViewController {
     func presentDDIDownloadAlert(for sender: UISwitch) {
         sender.isEnabled = false
         let alert = UIAlertController(
-            title: "Preparing JIT",
-            message: "Since this is your first time enabling JIT, Reynard needs to download and mount the Developer Disk Image. This is required for JIT to work properly.",
+            title: "正在准备 JIT",
+            message: "由于这是你首次启用 JIT，Reynard 需要下载并挂载 Developer Disk Image，这是 JIT 正常工作所必需的。",
             preferredStyle: .alert
         )
         let progressView = UIProgressView(progressViewStyle: .default)
@@ -179,7 +179,7 @@ extension SettingsRootViewController {
                     Prefs.JITSettings.isJITEnabled = false
                     sender.setOn(false, animated: true)
                     self.dismissAlertIfPresented(alert) {
-                        self.presentAlert(title: "Download Failed", message: error.localizedDescription)
+                        self.presentAlert(title: "下载失败", message: error.localizedDescription)
                     }
                 }
             }
@@ -202,8 +202,8 @@ extension SettingsRootViewController {
     
     func presentJITRestartAlert() {
         let alert = UIAlertController(
-            title: "Restart Required",
-            message: "The app will now close for the JIT setting to take effect.",
+            title: "需要重启",
+            message: "应用将立即关闭，以使 JIT 设置生效。",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in

@@ -20,7 +20,7 @@ final class ClearHistoryViewController: UITableViewController {
         button.layer.cornerRadius = 25
         button.layer.cornerCurve = .continuous
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setTitle("Clear History", for: .normal)
+        button.setTitle("清除历史记录", for: .normal)
         button.addTarget(self, action: #selector(clearHistory), for: .touchUpInside)
         return button
     }()
@@ -30,7 +30,7 @@ final class ClearHistoryViewController: UITableViewController {
         self.tabCount = tabCount
         self.onClear = onClear
         super.init(style: .insetGrouped)
-        title = "Clear History"
+        title = "清除历史记录"
     }
     
     required init?(coder: NSCoder) {
@@ -86,7 +86,7 @@ final class ClearHistoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Clear Timeframe" : "Additional Options"
+        section == 0 ? "清除时间范围" : "其他选项"
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -104,12 +104,12 @@ final class ClearHistoryViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") ?? UITableViewCell(style: .default, reuseIdentifier: "Cell")
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = ["Last hour", "Today", "Today and yesterday", "All history"][indexPath.row]
+            cell.textLabel?.text = ["最近一小时", "Today", "今天和昨天", "所有历史"][indexPath.row]
             cell.accessoryView = nil
             cell.accessoryType = indexPath.row == selectedTimeframeIndex ? .checkmark : .none
             cell.selectionStyle = .default
         } else {
-            cell.textLabel?.text = "Close All Tabs"
+            cell.textLabel?.text = "关闭所有标签页"
             cell.accessoryView = closeAllTabsSwitch
             cell.accessoryType = .none
             cell.selectionStyle = .none

@@ -158,7 +158,7 @@ final class SitePermissionController: NSObject, PermissionEmbedderDelegate {
             )
             alert.setValue(attributedTitle, forKey: "attributedTitle")
             
-            let cancelTitle = isMedia ? "Cancel" : "Don't Allow"
+            let cancelTitle = isMedia ? "Cancel" : "不允许"
             alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel) { _ in
                 continuation.resume(returning: false)
             })

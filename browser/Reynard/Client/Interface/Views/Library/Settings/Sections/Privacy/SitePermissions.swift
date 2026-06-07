@@ -38,13 +38,13 @@ final class SitePermissionsViewController: SettingsTableViewController {
             case .location:
                 return "Location"
             case .persistentStorage:
-                return "Persistent Storage"
+                return "持久存储"
             case .crossSiteCookies:
-                return "Cross-site Cookies"
+                return "跨站 Cookie"
             case .localDeviceAccess:
-                return "Device Apps and Services"
+                return "设备应用与服务"
             case .localNetworkAccess:
-                return "Local Network Devices"
+                return "本地网络设备"
             }
         }
         
@@ -112,7 +112,7 @@ final class SitePermissionsViewController: SettingsTableViewController {
     
     init() {
         super.init(style: .insetGrouped)
-        title = "Site Permissions"
+        title = "网站权限"
     }
     
     required init?(coder: NSCoder) {
@@ -161,7 +161,7 @@ final class SitePermissionsViewController: SettingsTableViewController {
             }
             
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = "Open Settings"
+            cell.textLabel?.text = "打开设置"
             cell.textLabel?.textColor = view.tintColor
             cell.accessoryType = .none
             return cell
@@ -192,10 +192,10 @@ final class SitePermissionsViewController: SettingsTableViewController {
             return cell
         case .websiteActions:
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            cell.textLabel?.text = "Reset Permissions for all Sites"
+            cell.textLabel?.text = "重置所有网站权限"
             cell.textLabel?.textColor = .systemRed
             if didResetPermissionsForAllSites {
-                cell.detailTextLabel?.text = "Successfully reset permissions for all sites."
+                cell.detailTextLabel?.text = "已成功重置所有网站权限。"
             } else {
                 cell.detailTextLabel?.text = nil
             }
@@ -414,13 +414,13 @@ private final class SitePermissionDetailsViewController: SettingsTableViewContro
         
         switch visibleSections[section] {
         case .defaultBehavior:
-            return "Default Behavior"
+            return "默认行为"
         case .allowedSites:
-            return "Allowed Sites"
+            return "允许的网站"
         case .deniedSites:
-            return "Denied Sites"
+            return "拒绝的网站"
         case .changedSites:
-            return "Changed Sites"
+            return "已更改的网站"
         }
     }
     
@@ -442,7 +442,7 @@ private final class SitePermissionDetailsViewController: SettingsTableViewContro
         case .allowedSites:
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             if allowedSites.isEmpty {
-                cell.textLabel?.text = "No Sites Added"
+                cell.textLabel?.text = "未添加网站"
                 cell.textLabel?.textColor = .secondaryLabel
                 cell.detailTextLabel?.text = nil
                 cell.selectionStyle = .none
@@ -461,7 +461,7 @@ private final class SitePermissionDetailsViewController: SettingsTableViewContro
         case .deniedSites:
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             if deniedSites.isEmpty {
-                cell.textLabel?.text = "No Sites Added"
+                cell.textLabel?.text = "未添加网站"
                 cell.textLabel?.textColor = .secondaryLabel
                 cell.detailTextLabel?.text = nil
                 cell.selectionStyle = .none
@@ -480,7 +480,7 @@ private final class SitePermissionDetailsViewController: SettingsTableViewContro
         case .changedSites:
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             if changedSites.isEmpty {
-                cell.textLabel?.text = "No Sites Added"
+                cell.textLabel?.text = "未添加网站"
                 cell.textLabel?.textColor = .secondaryLabel
                 cell.detailTextLabel?.text = nil
                 cell.selectionStyle = .none
@@ -585,9 +585,9 @@ private final class SitePermissionDetailsViewController: SettingsTableViewContro
         switch permission {
         case .autoplay:
             return [
-                PermissionOption(title: "Allow Audio and Video", action: .allowed),
-                PermissionOption(title: "Block Audio only", action: .askToAllow),
-                PermissionOption(title: "Block Audio and Video", action: .blocked),
+                PermissionOption(title: "允许音频和视频", action: .allowed),
+                PermissionOption(title: "仅阻止音频", action: .askToAllow),
+                PermissionOption(title: "阻止音频和视频", action: .blocked),
             ]
         default:
             return [
@@ -692,11 +692,11 @@ private func permissionActionTitle(for action: SitePermissionAction, permission:
     case .autoplay:
         switch action {
         case .allowed:
-            return "Allow Audio and Video"
+            return "允许音频和视频"
         case .askToAllow:
-            return "Block Audio only"
+            return "仅阻止音频"
         case .blocked:
-            return "Block Audio and Video"
+            return "阻止音频和视频"
         }
     default:
         switch action {

@@ -55,6 +55,9 @@ jobs:
             export PATH="$HOME/.cargo/bin:$PATH"
           fi
           rustup target add aarch64-apple-ios
+          if ! command -v cbindgen >/dev/null 2>&1; then
+            cargo install cbindgen
+          fi
 
       - name: Download Gecko and apply patches
         run: |

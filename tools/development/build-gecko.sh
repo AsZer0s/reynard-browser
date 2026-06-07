@@ -37,9 +37,10 @@ rm -f "$FIREFOX_DIR/.mozconfig"
 # linker before the build starts. Since this script explicitly requests ld64
 # for the apple-ios target above, teach the probe to accept any non-zero
 # --version response from that explicit linker as ld64.
-python3 - <<'PY'
+python3 - "$FIREFOX_DIR" <<'PY'
+import sys
 from pathlib import Path
-path = Path("$FIREFOX_DIR") / "build/moz.configure/toolchain.configure"
+path = Path(sys.argv[1]) / "build/moz.configure/toolchain.configure"
 text = path.read_text()
 old = 'if retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
 new = 'if linker == "ld64" and retcode != 0:\n                kind = "ld64"\n\n            elif retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'

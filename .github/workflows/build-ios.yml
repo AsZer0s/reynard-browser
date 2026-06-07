@@ -49,7 +49,8 @@ jobs:
           if ! command -v ldid >/dev/null 2>&1; then
             brew install ldid
           fi
-          if ! brew --prefix llvm >/dev/null 2>&1; then
+          LLVM_PREFIX="$(brew --prefix llvm)"
+          if [ ! -x "$LLVM_PREFIX/bin/clang" ]; then
             brew install llvm
           fi
           if ! command -v rustup >/dev/null 2>&1; then

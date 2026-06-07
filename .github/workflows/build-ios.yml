@@ -24,8 +24,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
-          fetch-depth: 0
+          submodules: false
+          fetch-depth: 1
+
+      - name: Initialize lightweight submodules
+        run: |
+          # Do not recursively clone Firefox during checkout; it is huge.
+          # update-gecko.sh performs a depth-1 checkout of the required release tag.
+          git submodule init engine/firefox support/idevice
+          git submodule update --init --depth 1 support/idevice
 
       - name: Install dependencies
         run: |

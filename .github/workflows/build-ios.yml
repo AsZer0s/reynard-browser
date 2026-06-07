@@ -15,23 +15,25 @@ on:
 jobs:
   build:
     name: Build IPA
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 720
     permissions:
       contents: read
 
     steps:
+      - name: Select Xcode with iOS 26 SDK
+        run: |
+          set -euxo pipefail
+          ls -1 /Applications | grep -E '^Xcode.*\.app$' || true
+          sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -n 1)/Contents/Developer"
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: false
           fetch-depth: 1
-
-      - name: Show Xcode versions
-        run: |
-          set -euxo pipefail
-          xcodebuild -version
-          xcrun --sdk iphoneos --show-sdk-version
 
       - name: Initialize lightweight submodules
         run: |

@@ -26,6 +26,7 @@ rm -f "$FIREFOX_DIR/.mozconfig"
 	# fails configure on GitHub macOS runners for the apple-ios target.
 	echo "ac_add_options --enable-linker=ld64"
 	echo "ac_add_options --enable-webrtc"
+	echo "ac_add_options --without-wasm-sandboxed-libraries"
 	echo "ac_add_options --enable-optimize"
 	echo "ac_add_options --disable-debug"
 	echo "ac_add_options --disable-tests"

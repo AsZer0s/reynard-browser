@@ -15,12 +15,20 @@ on:
 jobs:
   build:
     name: Build IPA
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 720
     permissions:
       contents: read
 
     steps:
+      - name: Select latest Xcode
+        run: |
+          set -euxo pipefail
+          ls -1 /Applications | grep -E '^Xcode.*\.app$' || true
+          sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -n 1)/Contents/Developer"
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:

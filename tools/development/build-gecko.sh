@@ -31,6 +31,23 @@ rm -f "$FIREFOX_DIR/.mozconfig"
 	echo "ac_add_options --disable-tests"
 } > "$FIREFOX_DIR/.mozconfig"
 
+# Firefox 151's linker probe only recognizes ld64 when LD_PRINT_OPTIONS emits
+# "Logging ld64 options" for -Wl,--version. Xcode 26's ld64 no longer emits
+# that exact string on GitHub runners, so configure rejects the valid iOS
+# linker before the build starts. Since this script explicitly requests ld64
+# for the apple-ios target above, teach the probe to accept any non-zero
+# --version response from that explicit linker as ld64.
+python3 - <<'PY'
+from pathlib import Path
+path = Path("build/moz.configure/toolchain.configure")
+text = path.read_text()
+old = 'if retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
+new = 'if linker == "ld64" and retcode != 0:\n                kind = "ld64"\n\n            elif retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
+if old not in text:
+    raise SystemExit("ld64 linker probe pattern not found")
+path.write_text(text.replace(old, new, 1))
+PY
+
 if ! rustup target list | grep -q "^$TARGET (installed)"; then
 	rustup target add "$TARGET"
 fi

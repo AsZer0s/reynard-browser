@@ -43,7 +43,7 @@ from pathlib import Path
 path = Path(sys.argv[1]) / "build/moz.configure/toolchain.configure"
 text = path.read_text()
 old = 'if retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
-new = 'if linker == "ld64" and retcode != 0:\n                kind = "ld64"\n\n            elif retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
+new = 'if linker in (None, "ld64") and target.kernel == "Darwin" and retcode != 0:\n                kind = "ld64"\n\n            elif retcode == 1 and "Logging ld64 options" in stderr:\n                kind = "ld64"'
 if old not in text:
     raise SystemExit("ld64 linker probe pattern not found")
 path.write_text(text.replace(old, new, 1))

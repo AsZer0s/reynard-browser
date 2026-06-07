@@ -36,8 +36,17 @@ jobs:
 
       - name: Install dependencies
         run: |
+          set -euxo pipefail
           brew update
-          brew install rust ldid
+          if ! command -v ldid >/dev/null 2>&1; then
+            brew install ldid
+          fi
+          if ! command -v rustup >/dev/null 2>&1; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+            echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+            export PATH="$HOME/.cargo/bin:$PATH"
+          fi
+          rustup target add aarch64-apple-ios
           python3 -m pip install --upgrade pip
 
       - name: Download Gecko and apply patches
